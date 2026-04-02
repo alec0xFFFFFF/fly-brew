@@ -184,11 +184,14 @@ function renderDoseList(doses) {
 // ── Carousel ──
 
 const ROUTE_META = {
-  'AA100': { emoji: '🗽🇬🇧', tagline: 'Red-eye to London', desc: 'The classic eastbound overnight — arrive sharp, not shattered.' },
-  'BA178': { emoji: '🇬🇧🗽', tagline: 'London to New York', desc: 'Chase the sun westbound — the long afternoon flight.' },
-  'UA900': { emoji: '🌉🗼', tagline: 'SFO to Tokyo', desc: '11 hours across the Pacific, +17 timezone shift.' },
-  'EK215': { emoji: '🏜️🌴', tagline: 'Dubai to Los Angeles', desc: '16-hour marathon — the ultimate westbound test.' },
-  'SQ25':  { emoji: '🇸🇬🇩🇪', tagline: 'Singapore to Frankfurt', desc: 'Overnight through 7 time zones into Europe.' },
+  'GA215': { emoji: '🏄', tagline: 'Surf trip to Bali',       desc: '17h to catch the perfect wave. +16h timezone shift — you\'ll need a plan.' },
+  'LX23':  { emoji: '⛷️', tagline: 'Ski the Swiss Alps',      desc: 'Red-eye to Zurich. Be carving fresh powder by afternoon, not napping.' },
+  'BA43':  { emoji: '🏃', tagline: 'Trail run Cape Town',     desc: 'Table Mountain and beyond. Small timezone shift, long overnight flight.' },
+  'NZ8':   { emoji: '🥾', tagline: 'Hike New Zealand',        desc: 'SFO to Queenstown — 21 timezone hours. The big one.' },
+  'UA138': { emoji: '🎿', tagline: 'Rockies from Tokyo',      desc: 'Powder in Colorado. 16h time shift westbound — caffeine timing is everything.' },
+  'BA27':  { emoji: '🌊', tagline: 'Surf & dive Hawaii',      desc: 'London to Honolulu. 10 hours back in time, 18h in the air.' },
+  'KQ3':   { emoji: '🦁', tagline: 'Run in Kenya',            desc: 'Train at altitude in Nairobi. +8h shift, overnight red-eye.' },
+  'FI681': { emoji: '🌋', tagline: 'Hike Iceland',            desc: 'LA to Reykjavik — glaciers, volcanoes, and an 8h clock jump east.' },
 };
 
 async function loadCarousel() {
