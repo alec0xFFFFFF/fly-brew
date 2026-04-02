@@ -1,17 +1,24 @@
 :root {
-  --bg: #0d1117;
-  --surface: #161b22;
-  --surface2: #1c2333;
-  --border: #30363d;
-  --text: #e6edf3;
-  --text-dim: #8b949e;
-  --accent: #c8a46e;
-  --accent-glow: #c8a46e33;
-  --green: #3fb950;
-  --red: #f85149;
-  --blue: #58a6ff;
-  --orange: #d29922;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface2: #f3f4f6;
+  --border: #e5e7eb;
+  --text: #1f2937;
+  --text-dim: #6b7280;
+  --accent: #92400e;
+  --accent-light: #fef3c7;
+  --accent-border: #f59e0b;
+  --green: #059669;
+  --green-light: #d1fae5;
+  --red: #dc2626;
+  --red-light: #fee2e2;
+  --blue: #2563eb;
+  --blue-light: #dbeafe;
+  --orange: #d97706;
+  --orange-light: #fef3c7;
   --radius: 12px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,15 +29,17 @@ body {
   color: var(--text);
   line-height: 1.6;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* ── Header ── */
 header {
   text-align: center;
-  padding: 2.5rem 1rem 1rem;
+  padding: 2rem 1rem 0.5rem;
 }
 
 header h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--accent);
   letter-spacing: -0.02em;
@@ -38,35 +47,40 @@ header h1 {
 
 .subtitle {
   color: var(--text-dim);
-  font-size: 1.1rem;
-  margin-top: 0.25rem;
+  font-size: 0.95rem;
+  margin-top: 0.15rem;
 }
 
+/* ── Layout ── */
 main {
-  max-width: 720px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.75rem;
 }
 
+/* ── Cards ── */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-bottom: 1rem;
+  padding: 1.25rem;
+  margin-bottom: 0.75rem;
+  box-shadow: var(--shadow);
 }
 
 .card h2 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
   color: var(--accent);
 }
 
-/* Form */
+/* ── Form ── */
 .form-row {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .field {
@@ -75,26 +89,29 @@ main {
 
 .field label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--text-dim);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .field input {
   width: 100%;
-  padding: 0.6rem 0.8rem;
+  padding: 0.6rem 0.75rem;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--surface2);
+  background: var(--surface);
   color: var(--text);
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .field input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px var(--accent-light);
 }
 
 button[type="submit"] {
@@ -103,88 +120,89 @@ button[type="submit"] {
   border: none;
   border-radius: 8px;
   background: var(--accent);
-  color: #000;
+  color: #fff;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background 0.2s;
 }
 
-button[type="submit"]:hover { opacity: 0.9; }
+button[type="submit"]:hover { background: #78350f; }
 button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* Demo flights */
+/* ── Demo flights ── */
 #demo-flights {
-  margin-top: 1rem;
-  font-size: 0.85rem;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
   color: var(--text-dim);
 }
 
 #demo-flights .demo-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.4rem;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
 }
 
 .demo-chip {
   display: inline-block;
-  padding: 0.25rem 0.6rem;
+  padding: 0.2rem 0.5rem;
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: 6px;
   cursor: pointer;
-  transition: border-color 0.2s;
-  font-size: 0.8rem;
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 .demo-chip:hover {
-  border-color: var(--accent);
+  border-color: var(--accent-border);
+  background: var(--accent-light);
   color: var(--accent);
 }
 
-/* Error */
+/* ── Error ── */
 .error {
-  background: #f8514922;
+  background: var(--red-light);
   border-color: var(--red);
   color: var(--red);
+  font-size: 0.9rem;
 }
 
-/* Flight info */
+/* ── Flight info ── */
 .flight-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .route {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 800;
 }
 
 .route .arrow {
   color: var(--accent);
-  margin: 0 0.4rem;
+  margin: 0 0.3rem;
 }
-
-.airport { letter-spacing: 0.05em; }
 
 .flight-meta {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.3rem;
+  flex-wrap: wrap;
 }
 
 .badge {
   display: inline-block;
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.5rem;
   border-radius: 6px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   background: var(--surface2);
   border: 1px solid var(--border);
+  color: var(--text-dim);
 }
 
 .badge.status {
@@ -193,76 +211,80 @@ button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .flight-details {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
 }
 
 .detail .label {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--text-dim);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
 .detail .value {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .detail .sub {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-dim);
 }
 
 .demo-notice {
-  margin-top: 1rem;
-  padding: 0.5rem 0.8rem;
-  background: var(--orange);
-  color: #000;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--orange-light);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
   border-radius: 6px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
-.demo-notice a { color: #000; }
+.demo-notice a { color: var(--accent); }
 
-/* Summary */
+/* ── Plan summary ── */
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
 }
 
 .stat {
   text-align: center;
-  padding: 0.8rem;
+  padding: 0.6rem;
   background: var(--surface2);
   border-radius: 8px;
 }
 
 .stat-value {
   display: block;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: var(--accent);
 }
 
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--text-dim);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
-/* Day cards */
+/* ── Day cards ── */
 .day-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-bottom: 1rem;
+  padding: 1.25rem;
+  margin-bottom: 0.75rem;
+  box-shadow: var(--shadow);
 }
 
 .day-card.flight { border-left: 3px solid var(--blue); }
@@ -271,74 +293,79 @@ button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
 .day-card.adaptation { border-left: 3px solid var(--orange); }
 
 .day-label {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .day-meta {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 0.75rem;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
   flex-wrap: wrap;
 }
 
 .day-meta-item {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .day-meta-item .meta-label {
   color: var(--text-dim);
-  margin-right: 0.3rem;
+  font-weight: 600;
+  margin-right: 0.2rem;
 }
 
+/* ── Dose list ── */
 .dose-list {
   list-style: none;
-  margin: 0.5rem 0;
+  margin: 0.4rem 0;
 }
 
 .dose-item {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.9rem;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--surface2);
+  font-size: 0.85rem;
 }
 
 .dose-item:last-child { border-bottom: none; }
 
 .dose-time {
   font-weight: 700;
-  min-width: 80px;
+  min-width: 75px;
   color: var(--accent);
+  font-size: 0.85rem;
 }
 
 .dose-icon {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .dose-label {
   color: var(--text-dim);
 }
 
+/* ── Advice & tips ── */
 .advice-box {
-  margin-top: 0.75rem;
-  padding: 0.6rem 0.8rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.65rem;
   background: var(--surface2);
   border-radius: 8px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 
 .advice-box .advice-label {
   color: var(--accent);
-  font-weight: 600;
-  margin-right: 0.3rem;
+  font-weight: 700;
+  margin-right: 0.2rem;
 }
 
 .tip {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
   color: var(--text-dim);
   font-style: italic;
 }
@@ -346,55 +373,82 @@ button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
 .caffeine-window {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.3rem 0.6rem;
-  background: var(--accent-glow);
-  border: 1px solid var(--accent);
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--accent-light);
+  border: 1px solid var(--accent-border);
   border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
 }
 
 .section-label {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--text-dim);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin: 0.75rem 0 0.25rem;
+  margin: 0.6rem 0 0.2rem;
 }
 
 .event-note {
-  padding: 0.5rem 0.8rem;
+  padding: 0.4rem 0.6rem;
   background: var(--surface2);
   border-radius: 8px;
-  font-size: 0.9rem;
-  margin: 0.3rem 0;
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
 }
 
-/* Footer */
+/* ── Footer ── */
 footer {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
   color: var(--text-dim);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 footer .small {
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  max-width: 600px;
+  margin-top: 0.3rem;
+  font-size: 0.7rem;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.5;
 }
 
 .hidden { display: none !important; }
 
-/* Responsive */
-@media (max-width: 500px) {
-  .form-row { flex-direction: column; }
-  .flight-header { flex-direction: column; align-items: flex-start; }
-  .route { font-size: 1.2rem; }
-  header h1 { font-size: 2rem; }
+/* ── Tablet+ ── */
+@media (min-width: 480px) {
+  .form-row {
+    flex-direction: row;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  header {
+    padding: 2.5rem 1rem 0.75rem;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .flight-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .flight-details {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
