@@ -62,6 +62,18 @@ app.get('/api/plan/:number/:date', async (req, res) => {
   }
 });
 
+// ── API: Health check / diagnostics ──
+app.get('/api/health', (req, res) => {
+  const key = (process.env.AVIATIONSTACK_API_KEY || '').trim();
+  res.json({
+    ok: true,
+    hasApiKey: !!key && key !== 'your_key_here',
+    keyPreview: key ? `${key.slice(0, 4)}...${key.slice(-4)}` : 'none',
+    keyLength: key.length,
+    nodeEnv: process.env.NODE_ENV || 'not set',
+  });
+});
+
 // ── API: List demo flights ──
 app.get('/api/demos', (req, res) => {
   const demos = Object.entries(DEMO_FLIGHTS).map(([code, f]) => ({
