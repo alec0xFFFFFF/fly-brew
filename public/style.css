@@ -162,7 +162,7 @@ main {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.25rem;
+  padding: 1rem;
   margin-bottom: 0.75rem;
   box-shadow: var(--shadow);
 }
@@ -170,16 +170,16 @@ main {
 .card h2 {
   font-size: 1.05rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   color: var(--accent);
 }
 
 /* ── Form ── */
 .form-row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .field {
@@ -188,22 +188,22 @@ main {
 
 .field label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--text-dim);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
 
 .field input {
   width: 100%;
-  padding: 0.6rem 0.75rem;
+  padding: 0.5rem 0.6rem;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface);
   color: var(--text);
-  font-size: 1rem;
+  font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -215,7 +215,8 @@ main {
 
 button[type="submit"] {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.6rem;
+  margin-top: 0.1rem;
   border: none;
   border-radius: 8px;
   background: var(--accent);
@@ -487,10 +488,6 @@ footer .small {
 
 /* ── Tablet+ ── */
 @media (min-width: 480px) {
-  .form-row {
-    flex-direction: row;
-  }
-
   main {
     padding: 1rem;
   }
