@@ -8,13 +8,14 @@ const errorEl = document.getElementById('error');
 const flightInfoEl = document.getElementById('flight-info');
 const planSummaryEl = document.getElementById('plan-summary');
 const planDaysEl = document.getElementById('plan-days');
-const demoFlightsEl = document.getElementById('demo-flights');
+const carouselEl = document.getElementById('carousel');
+const carouselSection = document.getElementById('carousel-section');
 
 // Set default date to today
 flightDateInput.valueAsDate = new Date();
 
-// Load demo flights
-loadDemos();
+// Load carousel
+loadCarousel();
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -41,8 +42,14 @@ async function fetchPlan() {
       throw new Error(data.error);
     }
 
+    // Hide carousel once results are showing
+    carouselSection.classList.add('hidden');
+
     renderFlight(data.flight);
     renderPlan(data.plan);
+
+    // Scroll to results
+    flightInfoEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err) {
     showError(err.message);
     flightInfoEl.classList.add('hidden');
@@ -69,25 +76,21 @@ function renderFlight(f) {
   document.getElementById('fi-arr-time').textContent = formatDateTime(arrTime);
   document.getElementById('fi-arr-city').textContent = f.destination.city;
 
-  // Duration
   const depMs = new Date(depTime).getTime() - f.origin.offset * 3600000;
   const arrMs = new Date(arrTime).getTime() - f.destination.offset * 3600000;
   const hrs = (arrMs - depMs) / 3600000;
   document.getElementById('fi-duration').textContent = `${Math.floor(hrs)}h ${Math.round((hrs % 1) * 60)}m`;
 
-  // Timezone shift
   const shift = f.destination.offset - f.origin.offset;
   document.getElementById('fi-shift').textContent = `${shift >= 0 ? '+' : ''}${shift}h`;
 
-  // Status badge color
   const statusEl = document.getElementById('fi-status');
   statusEl.style.background = f.status === 'active' || f.status === 'en-route'
     ? 'var(--green)' : f.status === 'landed'
       ? 'var(--blue)' : f.status === 'cancelled'
         ? 'var(--red)' : 'var(--surface2)';
-  statusEl.style.color = ['active', 'en-route', 'landed', 'cancelled'].includes(f.status) ? '#000' : 'var(--text)';
+  statusEl.style.color = ['active', 'en-route', 'landed', 'cancelled'].includes(f.status) ? '#fff' : 'var(--text)';
 
-  // Demo notice
   const demoNotice = document.getElementById('fi-demo-notice');
   if (f.isDemo) {
     demoNotice.classList.remove('hidden');
@@ -99,14 +102,12 @@ function renderFlight(f) {
 }
 
 function renderPlan(plan) {
-  // Summary
   document.getElementById('ps-direction').textContent = plan.summary.direction;
   document.getElementById('ps-total-brews').textContent = plan.summary.totalDryBrews;
   document.getElementById('ps-total-mg').textContent = `${plan.summary.totalCaffeineMg}mg`;
   document.getElementById('ps-days').textContent = plan.summary.totalDays;
   planSummaryEl.classList.remove('hidden');
 
-  // Days
   planDaysEl.innerHTML = '';
   for (const day of plan.days) {
     const card = document.createElement('div');
@@ -114,7 +115,6 @@ function renderPlan(plan) {
 
     let html = `<div class="day-label">${day.label}</div>`;
 
-    // Meta info
     html += '<div class="day-meta">';
     if (day.wake) html += `<span class="day-meta-item"><span class="meta-label">Wake:</span>${day.wake}</span>`;
     if (day.sleep) html += `<span class="day-meta-item"><span class="meta-label">Sleep:</span>${day.sleep}</span>`;
@@ -123,12 +123,10 @@ function renderPlan(plan) {
     if (day.flightDuration) html += `<span class="day-meta-item"><span class="meta-label">Duration:</span>${day.flightDuration}</span>`;
     html += '</div>';
 
-    // Caffeine window
     if (day.caffeineWindow) {
-      html += `<div class="caffeine-window">Dry Brew window: ${day.caffeineWindow.start} — ${day.caffeineWindow.cutoff}</div>`;
+      html += `<div class="caffeine-window">Dry Brew window: ${day.caffeineWindow.start} &mdash; ${day.caffeineWindow.cutoff}</div>`;
     }
 
-    // Flight day events
     if (day.events) {
       for (const ev of day.events) {
         const icon = ev.type === 'caffeine' ? '&#9749;' : '&#128564;';
@@ -136,35 +134,29 @@ function renderPlan(plan) {
       }
     }
 
-    // Pre-departure doses
     if (day.preDepartureDoses?.length > 0) {
       html += '<div class="section-label">Before departure</div>';
       html += renderDoseList(day.preDepartureDoses);
     }
 
-    // In-flight doses
     if (day.inFlightDoses?.length > 0) {
       html += '<div class="section-label">During flight</div>';
       html += renderDoseList(day.inFlightDoses);
     }
 
-    // Regular doses
     if (day.doses?.length > 0) {
       html += renderDoseList(day.doses);
     }
 
-    // No doses message
     const totalDoses = (day.doses?.length || 0) + (day.preDepartureDoses?.length || 0) + (day.inFlightDoses?.length || 0);
     if (totalDoses === 0 && day.type !== 'flight') {
       html += '<p style="color: var(--text-dim); font-size: 0.9rem;">No Dry Brew this day — caffeine window is too narrow.</p>';
     }
 
-    // Light advice
     if (day.lightAdvice) {
       html += `<div class="advice-box"><span class="advice-label">Light:</span>${day.lightAdvice}</div>`;
     }
 
-    // Tip
     if (day.tip) {
       html += `<div class="tip">${day.tip}</div>`;
     }
@@ -189,27 +181,43 @@ function renderDoseList(doses) {
   return html;
 }
 
-async function loadDemos() {
+// ── Carousel ──
+
+const ROUTE_META = {
+  'AA100': { emoji: '🗽🇬🇧', tagline: 'Red-eye to London', desc: 'The classic eastbound overnight — arrive sharp, not shattered.' },
+  'BA178': { emoji: '🇬🇧🗽', tagline: 'London to New York', desc: 'Chase the sun westbound — the long afternoon flight.' },
+  'UA900': { emoji: '🌉🗼', tagline: 'SFO to Tokyo', desc: '11 hours across the Pacific, +17 timezone shift.' },
+  'EK215': { emoji: '🏜️🌴', tagline: 'Dubai to Los Angeles', desc: '16-hour marathon — the ultimate westbound test.' },
+  'SQ25':  { emoji: '🇸🇬🇩🇪', tagline: 'Singapore to Frankfurt', desc: 'Overnight through 7 time zones into Europe.' },
+};
+
+async function loadCarousel() {
   try {
     const res = await fetch('/api/demos');
     const data = await res.json();
     if (!data.ok || !data.demos.length) return;
 
-    let html = '<span>Try a demo flight:</span><div class="demo-list">';
+    carouselEl.innerHTML = '';
     for (const d of data.demos) {
-      html += `<span class="demo-chip" data-code="${d.code}" title="${d.cities}">${d.code} (${d.route})</span>`;
-    }
-    html += '</div>';
-    demoFlightsEl.innerHTML = html;
-
-    demoFlightsEl.querySelectorAll('.demo-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        flightNumberInput.value = chip.dataset.code;
+      const meta = ROUTE_META[d.code] || { emoji: '✈️', tagline: d.cities, desc: '' };
+      const card = document.createElement('button');
+      card.className = 'carousel-card';
+      card.type = 'button';
+      card.innerHTML = `
+        <span class="carousel-emoji">${meta.emoji}</span>
+        <span class="carousel-route">${d.route}</span>
+        <span class="carousel-tagline">${meta.tagline}</span>
+        <span class="carousel-desc">${meta.desc}</span>
+        <span class="carousel-cta">See Dry Brew plan &rarr;</span>
+      `;
+      card.addEventListener('click', () => {
+        flightNumberInput.value = d.code;
         form.dispatchEvent(new Event('submit'));
       });
-    });
+      carouselEl.appendChild(card);
+    }
   } catch {
-    // Ignore — demos are optional
+    carouselSection.classList.add('hidden');
   }
 }
 
@@ -223,7 +231,7 @@ function hideError() {
 }
 
 function formatDateTime(iso) {
-  if (!iso) return '—';
+  if (!iso) return '\u2014';
   const d = new Date(iso);
   const h = d.getHours();
   const m = d.getMinutes();

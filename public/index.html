@@ -3,19 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fly Brew — Dry Brew Caffeine Plan for Travelers</title>
+  <title>Fly Brew — Beat jet lag with Dry Brew</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>Fly Brew</h1>
-    <p class="subtitle">Your Dry Brew caffeine plan for beating jet lag</p>
+    <p class="tagline">Beat jet lag before you land.</p>
+    <p class="subtitle">Know exactly when to eat your Dry Brew — timed to your flight, backed by circadian science.</p>
   </header>
 
   <main>
-    <!-- Search form -->
+    <!-- Popular routes carousel -->
+    <section id="carousel-section">
+      <h2 class="section-heading">Popular routes</h2>
+      <div id="carousel" class="carousel">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- Search form (collapsed by default, expands) -->
     <section id="search" class="card">
-      <h2>Find your flight</h2>
+      <h2>Or enter your flight</h2>
       <form id="flight-form">
         <div class="form-row">
           <div class="field">
@@ -39,7 +48,6 @@
         </div>
         <button type="submit" id="submit-btn">Get my Dry Brew plan</button>
       </form>
-      <div id="demo-flights"></div>
     </section>
 
     <!-- Error display -->
@@ -50,7 +58,7 @@
       <div class="flight-header">
         <div class="route">
           <span id="fi-origin" class="airport"></span>
-          <span class="arrow">→</span>
+          <span class="arrow">&rarr;</span>
           <span id="fi-dest" class="airport"></span>
         </div>
         <div class="flight-meta">
@@ -80,7 +88,7 @@
         </div>
       </div>
       <div id="fi-demo-notice" class="demo-notice hidden">
-        Demo flight — <a href="https://aviationstack.com/" target="_blank">add an API key</a> for real flight data
+        Demo flight data
       </div>
     </section>
 
@@ -113,8 +121,8 @@
   </main>
 
   <footer>
-    <p>Based on circadian neuroscience. Each Dry Brew = 65mg caffeine.</p>
-    <p class="small">Science: "little and often" (~50-65mg every 2.5h) · no caffeine within 8h of sleep · caffeine keeps you awake for light exposure, which is what actually shifts your clock.</p>
+    <p>Each Dry Brew = 65mg caffeine. Timed to keep you awake for light exposure — the real clock-shifter.</p>
+    <p class="small">"Little and often" (~65mg every 2.5h) &middot; No caffeine within 8h of sleep &middot; Based on circadian neuroscience</p>
   </footer>
 
   <script src="app.js"></script>

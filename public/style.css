@@ -35,20 +35,31 @@ body {
 /* ── Header ── */
 header {
   text-align: center;
-  padding: 2rem 1rem 0.5rem;
+  padding: 2.5rem 1rem 1rem;
 }
 
 header h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: var(--accent);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 0.25rem;
 }
 
 .subtitle {
   color: var(--text-dim);
-  font-size: 0.95rem;
-  margin-top: 0.15rem;
+  font-size: 0.9rem;
+  margin-top: 0.35rem;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
 }
 
 /* ── Layout ── */
@@ -56,6 +67,94 @@ main {
   max-width: 600px;
   margin: 0 auto;
   padding: 0.75rem;
+}
+
+/* ── Section headings ── */
+.section-heading {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 0.6rem;
+  padding: 0 0.25rem;
+}
+
+/* ── Carousel ── */
+#carousel-section {
+  margin-bottom: 0.75rem;
+}
+
+.carousel {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.25rem 0.25rem 0.75rem;
+  scrollbar-width: none;
+}
+
+.carousel::-webkit-scrollbar { display: none; }
+
+.carousel-card {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+}
+
+.carousel-card:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.carousel-card:active {
+  transform: translateY(0);
+}
+
+.carousel-emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.carousel-route {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.carousel-tagline {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.carousel-desc {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.carousel-cta {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 0.3rem;
 }
 
 /* ── Cards ── */
@@ -129,38 +228,6 @@ button[type="submit"] {
 
 button[type="submit"]:hover { background: #78350f; }
 button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* ── Demo flights ── */
-#demo-flights {
-  margin-top: 0.75rem;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-}
-
-#demo-flights .demo-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.3rem;
-}
-
-.demo-chip {
-  display: inline-block;
-  padding: 0.2rem 0.5rem;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.demo-chip:hover {
-  border-color: var(--accent-border);
-  background: var(--accent-light);
-  color: var(--accent);
-}
 
 /* ── Error ── */
 .error {
@@ -245,8 +312,6 @@ button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
   font-size: 0.8rem;
   font-weight: 600;
 }
-
-.demo-notice a { color: var(--accent); }
 
 /* ── Plan summary ── */
 .summary-grid {
@@ -431,11 +496,19 @@ footer .small {
   }
 
   header {
-    padding: 2.5rem 1rem 0.75rem;
+    padding: 3rem 1rem 1.25rem;
   }
 
   header h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
+  }
+
+  .tagline {
+    font-size: 1.4rem;
+  }
+
+  .carousel-card {
+    flex: 0 0 240px;
   }
 
   .summary-grid {
