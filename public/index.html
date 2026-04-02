@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fly Brew — Dry Brew Caffeine Plan for Travelers</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Fly Brew</h1>
+    <p class="subtitle">Your Dry Brew caffeine plan for beating jet lag</p>
+  </header>
+
+  <main>
+    <!-- Search form -->
+    <section id="search" class="card">
+      <h2>Find your flight</h2>
+      <form id="flight-form">
+        <div class="form-row">
+          <div class="field">
+            <label for="flight-number">Flight number</label>
+            <input type="text" id="flight-number" placeholder="e.g. AA100" required autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="flight-date">Date of flight</label>
+            <input type="date" id="flight-date" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="wake-time">Usual wake time</label>
+            <input type="time" id="wake-time" value="07:00">
+          </div>
+          <div class="field">
+            <label for="sleep-time">Usual bedtime</label>
+            <input type="time" id="sleep-time" value="23:00">
+          </div>
+        </div>
+        <button type="submit" id="submit-btn">Get my Dry Brew plan</button>
+      </form>
+      <div id="demo-flights"></div>
+    </section>
+
+    <!-- Error display -->
+    <div id="error" class="card error hidden"></div>
+
+    <!-- Flight info -->
+    <section id="flight-info" class="card hidden">
+      <div class="flight-header">
+        <div class="route">
+          <span id="fi-origin" class="airport"></span>
+          <span class="arrow">→</span>
+          <span id="fi-dest" class="airport"></span>
+        </div>
+        <div class="flight-meta">
+          <span id="fi-airline" class="badge"></span>
+          <span id="fi-number" class="badge"></span>
+          <span id="fi-status" class="badge status"></span>
+        </div>
+      </div>
+      <div class="flight-details">
+        <div class="detail">
+          <span class="label">Departs</span>
+          <span id="fi-dep-time" class="value"></span>
+          <span id="fi-dep-city" class="sub"></span>
+        </div>
+        <div class="detail">
+          <span class="label">Arrives</span>
+          <span id="fi-arr-time" class="value"></span>
+          <span id="fi-arr-city" class="sub"></span>
+        </div>
+        <div class="detail">
+          <span class="label">Duration</span>
+          <span id="fi-duration" class="value"></span>
+        </div>
+        <div class="detail">
+          <span class="label">Time shift</span>
+          <span id="fi-shift" class="value"></span>
+        </div>
+      </div>
+      <div id="fi-demo-notice" class="demo-notice hidden">
+        Demo flight — <a href="https://aviationstack.com/" target="_blank">add an API key</a> for real flight data
+      </div>
+    </section>
+
+    <!-- Plan summary -->
+    <section id="plan-summary" class="card hidden">
+      <h2>Your Dry Brew Plan</h2>
+      <div class="summary-grid">
+        <div class="stat">
+          <span class="stat-value" id="ps-direction"></span>
+          <span class="stat-label">Direction</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="ps-total-brews"></span>
+          <span class="stat-label">Total Dry Brews</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="ps-total-mg"></span>
+          <span class="stat-label">Total caffeine</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="ps-days"></span>
+          <span class="stat-label">Plan days</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day-by-day plan -->
+    <section id="plan-days" class="hidden"></section>
+
+    <!-- Live update indicator -->
+    <div id="live-indicator" class="hidden">
+      <span class="pulse"></span> Live — refreshing every 5 minutes
+    </div>
+  </main>
+
+  <footer>
+    <p>Based on circadian neuroscience. Each Dry Brew = 65mg caffeine.</p>
+    <p class="small">Science: "little and often" (~50-65mg every 2.5h) · no caffeine within 8h of sleep · caffeine keeps you awake for light exposure, which is what actually shifts your clock.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
