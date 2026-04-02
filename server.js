@@ -1,5 +1,18 @@
-const express = require('express');
+const fs = require('fs');
 const path = require('path');
+
+// Load .env for local dev (fly.io injects secrets as env vars directly)
+try {
+  const envPath = path.join(__dirname, '.env');
+  fs.readFileSync(envPath, 'utf8').split('\n').forEach(line => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) return;
+    const eq = trimmed.indexOf('=');
+    if (eq > 0) process.env[trimmed.slice(0, eq)] ??= trimmed.slice(eq + 1);
+  });
+} catch { /* no .env file — that's fine in production */ }
+
+const express = require('express');
 const { lookupFlight, DEMO_FLIGHTS } = require('./lib/flight');
 const { generatePlan } = require('./lib/caffeine');
 
