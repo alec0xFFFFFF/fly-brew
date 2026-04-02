@@ -8,10 +8,7 @@ const errorEl = document.getElementById('error');
 const flightInfoEl = document.getElementById('flight-info');
 const planSummaryEl = document.getElementById('plan-summary');
 const planDaysEl = document.getElementById('plan-days');
-const liveIndicator = document.getElementById('live-indicator');
 const demoFlightsEl = document.getElementById('demo-flights');
-
-let refreshInterval = null;
 
 // Set default date to today
 flightDateInput.valueAsDate = new Date();
@@ -22,11 +19,6 @@ loadDemos();
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   await fetchPlan();
-
-  // Start live refresh every 5 minutes
-  clearInterval(refreshInterval);
-  refreshInterval = setInterval(fetchPlan, 5 * 60 * 1000);
-  liveIndicator.classList.remove('hidden');
 });
 
 async function fetchPlan() {
@@ -56,8 +48,6 @@ async function fetchPlan() {
     flightInfoEl.classList.add('hidden');
     planSummaryEl.classList.add('hidden');
     planDaysEl.classList.add('hidden');
-    liveIndicator.classList.add('hidden');
-    clearInterval(refreshInterval);
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Get my Dry Brew plan';
