@@ -231,6 +231,38 @@ button[type="submit"] {
 button[type="submit"]:hover { background: #78350f; }
 button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* ── Buy CTA ── */
+.buy-card {
+  background: var(--accent-light);
+  border-color: var(--accent-border);
+}
+
+.buy-card h2 {
+  margin-bottom: 0.3rem;
+}
+
+.buy-card p {
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.buy-btn {
+  display: block;
+  text-align: center;
+  padding: 0.65rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.buy-btn:hover { background: #78350f; }
+
 /* ── Error ── */
 .error {
   background: var(--red-light);
@@ -475,6 +507,14 @@ footer {
   color: var(--text-dim);
   font-size: 0.8rem;
 }
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+footer a:hover { text-decoration: underline; }
 
 footer .small {
   margin-top: 0.3rem;

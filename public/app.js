@@ -8,6 +8,8 @@ const errorEl = document.getElementById('error');
 const flightInfoEl = document.getElementById('flight-info');
 const planSummaryEl = document.getElementById('plan-summary');
 const planDaysEl = document.getElementById('plan-days');
+const buyCtaEl = document.getElementById('buy-cta');
+const buyCountEl = document.getElementById('buy-count');
 const carouselEl = document.getElementById('carousel');
 const carouselSection = document.getElementById('carousel-section');
 
@@ -55,6 +57,7 @@ async function fetchPlan() {
     flightInfoEl.classList.add('hidden');
     planSummaryEl.classList.add('hidden');
     planDaysEl.classList.add('hidden');
+    buyCtaEl.classList.add('hidden');
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Get my Dry Brew plan';
@@ -166,6 +169,10 @@ function renderPlan(plan) {
   }
 
   planDaysEl.classList.remove('hidden');
+
+  // Show buy CTA
+  buyCountEl.textContent = plan.summary.totalDryBrews;
+  buyCtaEl.classList.remove('hidden');
 }
 
 function renderDoseList(doses) {
